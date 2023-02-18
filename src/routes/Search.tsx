@@ -1,6 +1,4 @@
-import { MenuItem } from "../styles/Header";
-
 function Search() {
-    return;
-  }
-  export default Search;
+  return;
+}
+export default Search;
