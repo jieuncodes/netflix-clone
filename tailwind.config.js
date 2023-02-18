@@ -10,7 +10,7 @@ module.exports = {
       },
     },
     fontFamily: {
-      logo: ["Bungee", "cursive"],
+      logo: ["Kanit", "sans-serif"],
       roboto: ['Roboto', "sans-serif"],
 
     },
