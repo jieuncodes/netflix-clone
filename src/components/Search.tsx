@@ -25,7 +25,7 @@ function Search() {
         <SearchIconBox
           onClick={toggleSearch}
           animate={{ x: searchOpen ? 0 : 185 }}
-          transition={{ type: "linear",  duration: 0.2}}
+          transition={{ type: "linear", duration: 0.2 }}
         >
           <SearchIcon
             style={{

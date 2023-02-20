@@ -8,17 +8,16 @@ export const HeaderArea = styled(motion.div)`
   position: fixed;
   top: 0;
   height: 64px;
-  z-index: 10;
+  z-index: 20;
   background-color: black;
   place-items: center;
 `;
-
-export const LogoDiv = tw.div<any>`font-logo text-lg text-red-600 ml-10`;
-export const LogoText = tw.span`text-3xl`;
+export const LogoDiv = tw.div<any>`font-logo text-[#ff1d28] ml-10`;
+export const LogoText = tw.span`text-[32px]`;
 
 export const MenuDiv = tw.div<any>`m-7 grid grid-cols-[60px,110px,60px,140px] text-white`;
 export const MenuSpanContainer = tw.div<any>` flex place-content-center`;
-export const MenuSpan = tw.span` m-3 opacity-90 hover:opacity-60 duration-500 relative transition `;
+export const MenuSpan = tw.span` m-3 opacity-90 hover:opacity-60 duration-500 relative transition font-normal `;
 
 export const SearchBarContainer = styled(motion.form)`
   display: flex;
@@ -39,7 +38,7 @@ export const SearchIconBox = styled(motion.div)`
 export const SearchBar = styled(motion.input)`
   transform-origin: right center;
   position: absolute;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.7);
   width: 230px;
   padding-left: 45px;
   height: 40px;

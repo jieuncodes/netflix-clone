@@ -18,13 +18,6 @@ function Menu() {
         <MenuItem url="/movies" text="Movies" />
         <MenuItem url="/new" text="New & Popular" />
       </MenuDiv>
-
-      <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/tv" element={<Tv />}></Route>
-        <Route path="/movies" element={<Movies />}></Route>
-        <Route path="/new" element={<NewAndPopular />}></Route>
-      </Routes>
     </>
   );
 }
