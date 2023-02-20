@@ -25,7 +25,7 @@ function Search() {
         <SearchIconBox
           onClick={toggleSearch}
           animate={{ x: searchOpen ? 0 : 185 }}
-          transition={{ type: "linear" }}
+          transition={{ type: "linear",  duration: 0.2}}
         >
           <SearchIcon
             style={{
@@ -39,7 +39,7 @@ function Search() {
           {...register("keyword", { required: true, minLength: 2 })}
           placeholder="Titles, People, Genres ..."
           animate={searchAnimation}
-          transition={{ type: "linear" }}
+          transition={{ type: "linear", duration: 0.2 }}
           initial={{ scaleX: 0 }}
         ></SearchBar>
       </SearchBarContainer>

@@ -17,7 +17,7 @@ export const LogoDiv = tw.div<any>`font-logo text-lg text-red-600 ml-10`;
 export const LogoText = tw.span`text-3xl`;
 
 export const MenuDiv = tw.div<any>`m-7 grid grid-cols-[60px,110px,60px,140px] text-white`;
-export const MenuSpanContainer = tw.div` flex place-content-center`;
+export const MenuSpanContainer = tw.div<any>` flex place-content-center`;
 export const MenuSpan = tw.span` m-3 opacity-90 hover:opacity-60 duration-500 relative transition `;
 
 export const SearchBarContainer = styled(motion.form)`
@@ -40,6 +40,7 @@ export const SearchBar = styled(motion.input)`
   transform-origin: right center;
   position: absolute;
   background-color: transparent;
+  width: 230px;
   padding-left: 45px;
   height: 40px;
   border: solid 1.5px;
