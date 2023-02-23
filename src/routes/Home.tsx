@@ -71,7 +71,9 @@ function Home() {
                     <Box
                       layoutId={movie.id + ""}
                       key={movie.id}
+                      transition={{ type: "tween" }}
                       bgPhoto={makeImgPath(movie.backdrop_path, "w500")}
+
                     ></Box>
                   ))}
               </Row>
