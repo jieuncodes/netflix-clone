@@ -36,11 +36,11 @@ export const Banner = styled.div<{ bgPhoto: string }>`
   background-size: cover;
   background-repeat: no-repeat;
 `;
-export const Info = tw.div`text-white flex flex-col absolute bottom-[30vh] p-[80px]`;
-export const Title = tw.div` font-tradewinds text-6xl max-w-[60vw] leading-snug `;
-export const OverView = tw.div` max-w-[50vw] mt-10 text-2xl font-normal leading-normal`;
+export const Info = tw.div<any>`text-white flex flex-col absolute bottom-[30vh] ipad11:bottom-[26vh] macbook14:bottom-[30vh] p-[80px]`;
+export const Title = tw.div<any>` font-tradewinds text-6xl ipad11:text-5xl macbook14:text-6xl max-w-[60vw] leading-snug `;
+export const OverView = tw.div<any>` max-w-[50vw] mt-10 ipad11:mt-6 macbook14:mt-7 text-2xl ipad11:text-lg macbook14:text-xl font-normal macbook14:font-light leading-normal`;
 
-export const Slider = tw.div`z-20 relative -top-40`;
+export const Slider = tw.div<any>`z-20 relative -top-40`;
 export const SliderTitle = tw.span` text-white text-4xl ml-10 `;
 export const Row = styled(motion.div)`
   display: grid;

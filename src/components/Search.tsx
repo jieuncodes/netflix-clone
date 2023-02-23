@@ -4,11 +4,16 @@ import { SearchBar, SearchBarContainer, SearchIconBox } from "../styles/Header";
 import motion, { useAnimation } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { IForm } from "../interfaces";
+import { useMediaQuery } from 'react-responsive'
 
 function Search() {
   const searchAnimation = useAnimation();
   const [searchOpen, setSearchOpen] = useState(false);
   const { register, handleSubmit } = useForm<IForm>();
+  const isIpad11 = useMediaQuery({ query: '(max-width: 1112px)' });
+  const isMacBook14 = useMediaQuery({ query: '(max-width: 1470px)' });
+
+  const mediaFontSize = isIpad11 ? "30px" : isMacBook14 ? "30px" : "40px";
 
   const toggleSearch = () => {
     if (searchOpen) {
@@ -24,13 +29,13 @@ function Search() {
       <SearchBarContainer>
         <SearchIconBox
           onClick={toggleSearch}
-          animate={{ x: searchOpen ? 0 : 280 }}
+          animate={{ x: searchOpen ? 0 : 210 }}
           transition={{ type: "linear", duration: 0.2 }}
         >
           <SearchIcon
             style={{
               color: "white",
-              fontSize: "40px",
+              fontSize: mediaFontSize,
             }}
           />
         </SearchIconBox>
