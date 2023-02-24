@@ -16,6 +16,7 @@ function Header() {
   const headerAnimation = useAnimation();
 
   useMotionValueEvent(scrollYProgress, "change", (currY) => {
+    console.log("currY", currY);
     if (currY > 0.1) {
       headerAnimation.start("scroll");
     } else {
