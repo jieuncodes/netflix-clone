@@ -7,8 +7,8 @@ export const ASlider = tw.div`relative h-[250px]`;
 export const SliderTitle = tw.span` text-white text-4xl ipad11:text-2xl font-medium`;
 export const Slider = tw.div<any>`w-screen relative mt-5`;
 
-export const Arrows = tw.div` z-30 opacity-0 hover:opacity-100 delay-300 absolute flex justify-between w-full h-full place-items-center`;
-export const ArrowBox = tw.div`z-20 w-14 h-[152px] bg-black/40 flex ipad11:-ml-[50px] ipad11:mr-[50px] mt-0 mb-0 rounded-sm `;
+export const Arrows = tw.div` z-30 w-full h-full opacity-0 hover:opacity-100 delay-300 absolute flex justify-between place-items-center mt-[75px]`;
+export const ArrowBox = tw.div`z-20 w-14 h-[152px] bg-black/40 flex ipad11:-ml-[50px] ipad11:mr-[50px] mt-0 mb-0 rounded-sm`;
 
 export const ArrowStyle = {
   color: "white",

@@ -49,8 +49,8 @@ function SliderBox({ title }: SliderBoxProps) {
     hidden: {
       x:
         onGoing === "forward" && onGoing === clickedDirection
-          ? width + 150
-          : -width - 150,
+          ? width + 230
+          : -width - 230,
     },
     visible: { x: 0 },
     exit: {},
@@ -58,20 +58,15 @@ function SliderBox({ title }: SliderBoxProps) {
   const toggleLeaving = () => setLeaving((prev) => !prev);
 
   function changeIndex(clickedDirection: "forward" | "backward") {
-    console.log("onGoing", onGoing);
-    console.log("clickedDirection", clickedDirection);
-    console.log("leaving is now", leaving);
     if (data && !isAnimating) {
       setIsAnimating(true);
       if (leaving) {
-        console.log("leaving", index);
         RowVariants.exit = {
-          x: clickedDirection === "forward" ? -width - 150 : width + 150,
+          x: clickedDirection === "forward" ? -width - 230 : width + 230,
         };
         setLeaving(false);
       }
       toggleLeaving();
-      console.log("leaving is now", leaving);
 
       if (clickedDirection == "forward") {
         setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
