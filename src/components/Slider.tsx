@@ -4,7 +4,7 @@ import { useMediaQuery } from "react-responsive";
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { useQuery } from "react-query";
-import { getMovies } from "../api";
+import { getNowPlayingMovies, getTrending } from "../api";
 import { makeImgPath } from "../utils";
 import {
   Arrows,
@@ -24,8 +24,13 @@ import {
 } from "../styles/layout";
 import useWindowDimensions from "../components/WindowSize";
 
-function SliderBox({ title }: SliderBoxProps) {
-  const { data, isLoading } = useQuery(["movies", "nowPlaying"], getMovies);
+function SliderBox({ title, section, queryKey }: SliderBoxProps) {
+  const api =
+    queryKey == "allNowPlaying"
+      ? getNowPlayingMovies
+      : () => getTrending("all", "day");
+
+  const { data, isLoading } = useQuery([section, queryKey], api);
   const isIpad11 = useMediaQuery({ query: "(max-width: 1112px)" });
   const isMacBook14 = useMediaQuery({ query: "(max-width: 1440px)" });
   const width = useWindowDimensions();
@@ -42,8 +47,8 @@ function SliderBox({ title }: SliderBoxProps) {
     : mac24Padding;
 
   const offset = isIpad11 ? 5 : 6;
-  const totalMovies = data.results.length - 1;
-  const maxIndex = Math.floor(totalMovies / offset) - 1;
+  const totalVideos = data?.results.length - 1;
+  const maxIndex = Math.floor(totalVideos / offset) - 1;
 
   const RowVariants = {
     hidden: {
@@ -80,7 +85,7 @@ function SliderBox({ title }: SliderBoxProps) {
   }
 
   return (
-    <ASlider>
+    <ASlider key={queryKey}>
       <SliderTitle>{title}</SliderTitle>
       <Slider>
         <Arrows>
@@ -123,18 +128,18 @@ function SliderBox({ title }: SliderBoxProps) {
             initial="hidden"
             animate="visible"
             exit="exit"
-            key={index}
+            key={`${queryKey}_${index}`}
             transition={{ type: "tween", duration: 1 }}
           >
             {data?.results
               .slice(1)
               .slice(offset * index, offset * index + offset)
-              .map((movie: any) => (
+              .map((video: any) => (
                 <Box
-                  layoutId={movie.id + ""}
-                  key={movie.id}
+                  layoutId={`${queryKey}_${video.id}`}
+                  key={`${queryKey}_${video.id}`}
                   transition={{ type: "tween" }}
-                  bgphoto={makeImgPath(movie.backdrop_path, "w500")}
+                  bgphoto={makeImgPath(video.backdrop_path, "w500")}
                 ></Box>
               ))}
           </Row>

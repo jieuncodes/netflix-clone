@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { getMovies } from "../api";
+import { getNowPlayingMovies, getTrending } from "../api";
 import { showFullTextAtom } from "../atom";
 import { makeImgPath } from "../utils";
 import CutAfterColon from "../components/CutAfterColon";
@@ -20,7 +20,9 @@ import { useRecoilValue } from "recoil";
 import { SliderArea } from "../styles/Slider";
 
 function Home() {
-  const { data, isLoading } = useQuery(["movies", "nowPlaying"], getMovies);
+  const { data, isLoading } = useQuery(["all", "trending"], () =>
+    getTrending("all", "day")
+  );
   console.log(data, isLoading);
   const showFullText = useRecoilValue(showFullTextAtom);
 
@@ -46,8 +48,17 @@ function Home() {
             ></Banner>
           </BannerWrapper>
           <SliderArea>
-            <SliderBox title="Now Playing" />
-            {/* <SliderBox title="Trending Now" /> */}
+            <SliderBox
+              title="Now Playing"
+              section="all"
+              queryKey="allNowPlaying"
+            />
+
+            <SliderBox
+              title="Trending Now"
+              section="all"
+              queryKey="allDayTrending"
+            />
           </SliderArea>
         </>
       )}
