@@ -1,7 +1,7 @@
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useMediaQuery } from "react-responsive";
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { useQuery } from "react-query";
 import { getMovies } from "../api";
@@ -30,13 +30,9 @@ function SliderBox({ title }: SliderBoxProps) {
   const isMacBook14 = useMediaQuery({ query: "(max-width: 1440px)" });
   const width = useWindowDimensions();
   const [index, setIndex] = useState(0);
-
-  const [leaving, setLeaving] = useState(false);
+  const [leaving, setLeaving] = useState(true);
   const [onGoing, setOnGoing] = useState("forward");
   const [clickedDirection, setClickedDirection] = useState("forward");
-
-  const toggleLeaving = () => setLeaving((prev) => !prev);
-  const offset = isIpad11 ? 5 : 6;
 
   const mediaPadding = isIpad11
     ? ipad11Padding
@@ -44,6 +40,7 @@ function SliderBox({ title }: SliderBoxProps) {
     ? macbook14Padding
     : mac24Padding;
 
+  const offset = isIpad11 ? 5 : 6;
   const totalMovies = data.results.length - 1;
   const maxIndex = Math.floor(totalMovies / offset) - 1;
 
@@ -57,10 +54,14 @@ function SliderBox({ title }: SliderBoxProps) {
     visible: { x: 0 },
     exit: {},
   };
+  const toggleLeaving = () => setLeaving((prev) => !prev);
 
   function changeIndex(clickedDirection: "forward" | "backward") {
+    console.log("onGoing", onGoing);
+    console.log("clickedDirection", clickedDirection);
     if (data) {
       if (leaving) {
+        console.log("leaving", index);
         RowVariants.exit = {
           x: clickedDirection === "forward" ? -width - 150 : width + 150,
         };
