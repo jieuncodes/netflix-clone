@@ -49,15 +49,22 @@ function Home() {
           </BannerWrapper>
           <SliderArea>
             <SliderBox
+              sliderType="list"
               title="Now Playing"
               section="all"
               queryKey="allNowPlaying"
             />
-
             <SliderBox
+              sliderType="list"
               title="Trending Now"
               section="all"
               queryKey="allDayTrending"
+            />
+            <SliderBox
+              sliderType="ranking"
+              title="Top Rated Movies"
+              section="movies"
+              queryKey="moviesTopRated"
             />
           </SliderArea>
         </>

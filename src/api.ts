@@ -15,3 +15,10 @@ export async function getTrending(mediaType: string, timeWindow: string) {
   );
   return await response.json();
 }
+
+export async function getTopRatedMovies() {
+  const response = await fetch(
+    `${BASE_PATH}/movie/top_rated?api_key=${API_KEY}`
+  );
+  return await response.json();
+}

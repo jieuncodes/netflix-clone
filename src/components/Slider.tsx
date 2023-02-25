@@ -4,7 +4,7 @@ import { useMediaQuery } from "react-responsive";
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { useQuery } from "react-query";
-import { getNowPlayingMovies, getTrending } from "../api";
+import { getNowPlayingMovies, getTopRatedMovies, getTrending } from "../api";
 import { makeImgPath } from "../utils";
 import {
   Arrows,
@@ -15,6 +15,9 @@ import {
   Row,
   Box,
   ASlider,
+  Ranking,
+  RankedBox,
+  RankedImgBox,
 } from "../styles/Slider";
 import { SliderBoxProps } from "../interfaces";
 import {
@@ -23,18 +26,21 @@ import {
   macbook14Padding,
 } from "../styles/layout";
 import useWindowDimensions from "../components/WindowSize";
+import { dividerClasses } from "@mui/material";
 
-function SliderBox({ title, section, queryKey }: SliderBoxProps) {
+function SliderBox({ sliderType, title, section, queryKey }: SliderBoxProps) {
   const api =
     queryKey == "allNowPlaying"
       ? getNowPlayingMovies
-      : () => getTrending("all", "day");
+      : queryKey == "allDayTrending"
+      ? () => getTrending("all", "day")
+      : getTopRatedMovies;
 
   const { data, isLoading } = useQuery([section, queryKey], api);
   const isIpad11 = useMediaQuery({ query: "(max-width: 1112px)" });
   const isMacBook14 = useMediaQuery({ query: "(max-width: 1440px)" });
   const width = useWindowDimensions();
-  const [index, setIndex] = useState(0);
+  const [slidePage, setSlidePage] = useState(0);
   const [leaving, setLeaving] = useState(true);
   const [onGoing, setOnGoing] = useState("forward");
   const [clickedDirection, setClickedDirection] = useState("forward");
@@ -48,7 +54,7 @@ function SliderBox({ title, section, queryKey }: SliderBoxProps) {
 
   const offset = isIpad11 ? 5 : 6;
   const totalVideos = data?.results.length - 1;
-  const maxIndex = Math.floor(totalVideos / offset) - 1;
+  const maxSlidePage = Math.floor(totalVideos / offset) - 1;
 
   const RowVariants = {
     hidden: {
@@ -62,7 +68,7 @@ function SliderBox({ title, section, queryKey }: SliderBoxProps) {
   };
   const toggleLeaving = () => setLeaving((prev) => !prev);
 
-  function changeIndex(clickedDirection: "forward" | "backward") {
+  function changeSlidePage(clickedDirection: "forward" | "backward") {
     if (data && !isAnimating) {
       setIsAnimating(true);
       if (leaving) {
@@ -74,10 +80,10 @@ function SliderBox({ title, section, queryKey }: SliderBoxProps) {
       toggleLeaving();
 
       if (clickedDirection == "forward") {
-        setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+        setSlidePage((prev) => (prev === maxSlidePage ? 0 : prev + 1));
         setOnGoing("forward");
       } else {
-        setIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
+        setSlidePage((prev) => (prev === 0 ? maxSlidePage : prev - 1));
         setOnGoing("backward");
       }
       setTimeout(() => setIsAnimating(false), 1000);
@@ -91,7 +97,7 @@ function SliderBox({ title, section, queryKey }: SliderBoxProps) {
         <Arrows>
           <ArrowBox
             onClick={() => {
-              changeIndex("backward");
+              changeSlidePage("backward");
               setClickedDirection("backward");
             }}
           >
@@ -105,7 +111,7 @@ function SliderBox({ title, section, queryKey }: SliderBoxProps) {
           </ArrowBox>
           <ArrowBox
             onClick={() => {
-              changeIndex("forward");
+              changeSlidePage("forward");
               setClickedDirection("forward");
             }}
           >
@@ -118,32 +124,66 @@ function SliderBox({ title, section, queryKey }: SliderBoxProps) {
             />
           </ArrowBox>
         </Arrows>
-
         <AnimatePresence
           initial={false}
           onExitComplete={() => setLeaving(true)}
         >
-          <Row
-            variants={RowVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            key={`${queryKey}_${index}`}
-            transition={{ type: "tween", duration: 1 }}
-          >
-            {data?.results
-              .slice(1)
-              .slice(offset * index, offset * index + offset)
-              .map((video: any) => (
-                <Box
-                  layoutId={`${queryKey}_${video.id}`}
-                  key={`${queryKey}_${video.id}`}
-                  transition={{ type: "tween" }}
-                  bgphoto={makeImgPath(video.backdrop_path, "w500")}
-                ></Box>
-              ))}
-          </Row>
+          {sliderType == "ranking" ? (
+            <Row
+              variants={RowVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              key={`${queryKey}_${slidePage}`}
+              transition={{ type: "tween", duration: 1 }}
+            >
+              {data?.results
+                .slice(1)
+                .slice(offset * slidePage, offset * slidePage + offset)
+                .map((video: any, index: number) => (
+                  <RankedBox>
+                    {offset * slidePage + index + 1 > 9 ? (
+                      <Ranking style={{ fontSize: 200 }}>
+                        {offset * slidePage + index + 1}
+                      </Ranking>
+                    ) : (
+                      <Ranking style={{ fontSize: 220 }}>
+                        {offset * slidePage + index + 1}
+                      </Ranking>
+                    )}
+                    <RankedImgBox
+                      layoutId={`${queryKey}_${video.id}`}
+                      key={`${queryKey}_${video.id}`}
+                      transition={{ type: "tween" }}
+                      bgphoto={makeImgPath(video.poster_path)}
+                    ></RankedImgBox>
+                  </RankedBox>
+                ))}
+            </Row>
+          ) : (
+            <Row
+              variants={RowVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              key={`${queryKey}_${slidePage}`}
+              transition={{ type: "tween", duration: 1 }}
+            >
+              {data?.results
+                .slice(1)
+                .slice(offset * slidePage, offset * slidePage + offset)
+                .map((video: any) => (
+                  <Box
+                    layoutId={`${queryKey}_${video.id}`}
+                    key={`${queryKey}_${video.id}`}
+                    transition={{ type: "tween" }}
+                    bgphoto={makeImgPath(video.backdrop_path, "w500")}
+                  ></Box>
+                ))}
+            </Row>
+          )}
         </AnimatePresence>
+        2
       </Slider>
     </ASlider>
   );
