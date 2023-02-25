@@ -33,6 +33,7 @@ function SliderBox({ title }: SliderBoxProps) {
   const [leaving, setLeaving] = useState(true);
   const [onGoing, setOnGoing] = useState("forward");
   const [clickedDirection, setClickedDirection] = useState("forward");
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const mediaPadding = isIpad11
     ? ipad11Padding
@@ -59,14 +60,18 @@ function SliderBox({ title }: SliderBoxProps) {
   function changeIndex(clickedDirection: "forward" | "backward") {
     console.log("onGoing", onGoing);
     console.log("clickedDirection", clickedDirection);
-    if (data) {
+    console.log("leaving is now", leaving);
+    if (data && !isAnimating) {
+      setIsAnimating(true);
       if (leaving) {
         console.log("leaving", index);
         RowVariants.exit = {
           x: clickedDirection === "forward" ? -width - 150 : width + 150,
         };
+        setLeaving(false);
       }
       toggleLeaving();
+      console.log("leaving is now", leaving);
 
       if (clickedDirection == "forward") {
         setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
@@ -75,6 +80,7 @@ function SliderBox({ title }: SliderBoxProps) {
         setIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
         setOnGoing("backward");
       }
+      setTimeout(() => setIsAnimating(false), 1000);
     }
   }
 
@@ -113,7 +119,10 @@ function SliderBox({ title }: SliderBoxProps) {
           </ArrowBox>
         </Arrows>
 
-        <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
+        <AnimatePresence
+          initial={false}
+          onExitComplete={() => setLeaving(true)}
+        >
           <Row
             variants={RowVariants}
             initial="hidden"
