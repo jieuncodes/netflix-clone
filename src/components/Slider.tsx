@@ -4,7 +4,7 @@ import { useMediaQuery } from "react-responsive";
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { useQuery } from "react-query";
-import { getNowPlayingMovies, getTopRatedMovies, getTrending } from "../api";
+import { apiMap } from "../api";
 import { makeImgPath } from "../utils";
 import {
   Arrows,
@@ -29,15 +29,9 @@ import {
   macbook14Padding,
 } from "../styles/layout";
 import useWindowDimensions from "../components/WindowSize";
-import { dividerClasses } from "@mui/material";
 
 function SliderBox({ sliderType, title, section, queryKey }: SliderBoxProps) {
-  const api =
-    queryKey == "allNowPlaying"
-      ? getNowPlayingMovies
-      : queryKey == "allDayTrending"
-      ? () => getTrending("all", "day")
-      : getTopRatedMovies;
+  const api = apiMap[queryKey] || apiMap.default;
 
   const { data, isLoading } = useQuery([section, queryKey], api);
   const isIpad11 = useMediaQuery({ query: "(max-width: 1112px)" });
