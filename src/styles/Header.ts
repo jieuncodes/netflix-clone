@@ -17,7 +17,7 @@ export const HeaderArea = styled(motion.div)`
     height: 60px;
     padding: 35px 50px;
   }
-  @media (min-width: 1440px) {
+  @media (min-width: 1645px) {
     height: 60px;
     padding: 45px 50px;
   }
@@ -40,7 +40,7 @@ export const SearchBarContainer = styled(motion.form)`
   @media (min-width: 1112px) {
     right: 60px;
   }
-  @media (min-width: 1440px) {
+  @media (min-width: 1645px) {
     right: 70px;
   }
 `;
@@ -72,7 +72,7 @@ export const SearchBar = styled(motion.input)`
     width: 240px;
     padding-left: 50px;
   }
-  @media (min-width: 1440px) {
+  @media (min-width: 1645px) {
     border: solid 1px;
     font-size: medium;
     height: 40px;

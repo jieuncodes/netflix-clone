@@ -3,8 +3,8 @@ import styled from "styled-components";
 import tw from "tailwind-styled-components";
 
 export const SliderArea = tw.div`z-30 flex flex-col absolute w-full -mt-[170px] p-[50px]`;
-export const ASlider = tw.div`relative h-[270px]`;
-export const SliderTitle = tw.span` text-white text-4xl ipad11:text-2xl font-medium`;
+export const ASlider = tw.div`relative h-[270px] macbook14:h-[320px]`;
+export const SliderTitle = tw.span` text-white text-4xl ipad11:text-2xl macbook14:text-3xl font-medium`;
 export const Slider = tw.div<any>`w-screen relative mt-5`;
 
 export const Arrows = tw.div` z-30 w-full h-full opacity-0 hover:opacity-100 delay-300 absolute flex justify-between place-items-center mt-[75px]`;
@@ -21,6 +21,10 @@ export const Row = styled(motion.div)`
   position: absolute;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
+  /* @media (min-width: 1644px) {
+    grid-template-columns: repeat(7, 1fr);
+  } */
+
   gap: 15px;
 `;
 export const Box = styled(motion.div)<{ bgphoto: string }>`
@@ -33,6 +37,18 @@ export const Box = styled(motion.div)<{ bgphoto: string }>`
   @media (min-width: 1112px) {
     height: 150px;
     width: 250px;
+  }
+  @media (min-width: 1645px) {
+    height: 200px;
+    width: 300px;
+  }
+  @media (min-width: 1942px) {
+    height: 200px;
+    width: 300px;
+  }
+  @media (min-width: 1942px) {
+    height: 210px;
+    width: 320px;
   }
 `;
 

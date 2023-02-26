@@ -5,8 +5,8 @@ module.exports = {
   theme: {
     screens: {
       ipad11: "1112px",
-      macbook14: "1440px",
-      mac24: "2560px",
+      macbook14: "1645px",
+      mac24: "1942px",
     },
     extend: {
       colors: {

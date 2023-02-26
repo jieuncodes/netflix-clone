@@ -1,10 +1,6 @@
-import { Link, To, useMatch } from "react-router-dom";
+import { Link, useMatch } from "react-router-dom";
+import { IMenuItem } from "../interfaces";
 import { MenuSpan, MenuSpanContainer } from "../styles/Header";
-
-interface IMenuItem {
-  url: string;
-  text: string;
-}
 
 function MenuItem({ url, text }: IMenuItem) {
   const match = useMatch(url);

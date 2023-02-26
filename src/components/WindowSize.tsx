@@ -12,7 +12,7 @@ function useWindowDimensions() {
     window.addEventListener("resize", handleResize);
     console.log("window size is now: ", windowWidth);
     return () => window.removeEventListener("resize", handleResize);
-  }, [setWindowWidth]);
+  }, [windowWidth]);
   return windowWidth;
 }
 

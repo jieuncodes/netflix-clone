@@ -11,7 +11,7 @@ function Search() {
   const [searchOpen, setSearchOpen] = useState(false);
   const { register, handleSubmit } = useForm<IForm>();
   const isIpad11 = useMediaQuery({ query: "(min-width: 1112px)" });
-  const isMacBook14 = useMediaQuery({ query: "(min-width: 1440px)" });
+  const isMacBook14 = useMediaQuery({ query: "(min-width: 1645px)" });
 
   const mediaFontSize = isIpad11 ? "30px" : isMacBook14 ? "30px" : "40px";
 

@@ -1,3 +1,7 @@
+export interface IMenuItem {
+  url: string;
+  text: string;
+}
 export interface IForm {
   keyword: string;
 }
